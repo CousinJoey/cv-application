@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import uniquid from "uniquid";
 
-class EducationData extends Component {
+class Education extends Component {
   constructor(props) {
     super(props);
 
@@ -28,55 +29,95 @@ class EducationData extends Component {
         [title]: value,
       },
     }));
-    console.log(title + " " + value);
+  };
+
+  onSubmitEducation = (e) => {
+    e.preventDefault();
+    const newEducationItem = {
+      school: this.state.education.school,
+      startYear: this.state.education.startYear,
+      endYear: this.state.education.endYear,
+      degree: this.state.education.degree,
+      gpa: this.state.education.gpa,
+      extra: this.state.education.extra,
+      id: this.state.education.id,
+    };
+    this.props.addItemEducation(newEducationItem);
+    this.setState({
+      education: {
+        school: ``,
+        startYear: ``,
+        endYear: ``,
+        degree: ``,
+        gpa: ``,
+        extra: ``,
+        id: uniquid(),
+      },
+    });
   };
 
   render() {
     const { education } = this.state;
     return (
-      <div>
-        <label>Education</label>
-        <form>
+      <div id="education-form-container">
+        <label id="education-label">Education</label>
+        <form id="education-form" onSubmit={this.onSubmitEducation}>
           <input
+            placeholder="University Name"
             type="text"
             title="school"
             value={education.school}
             onChange={this.handleEducationChange}
           />
           <input
+            placeholder="Start Year"
             type="text"
             title="startYear"
             value={education.startYear}
             onChange={this.handleEducationChange}
           />
           <input
+            placeholder="End Year"
             type="text"
             title="endYear"
             value={education.endYear}
             onChange={this.handleEducationChange}
           />
           <input
+            placeholder="Degree"
+            id="education-degree"
             type="text"
             title="degree"
             value={education.degree}
             onChange={this.handleEducationChange}
           />
           <input
+            placeholder="GPA"
+            id="education-gpa"
             type="text"
             title="gpa"
             value={education.gpa}
             onChange={this.handleEducationChange}
           />
-          <input
+          <textarea
+            placeholder="extracurriculars"
+            id="education-extra"
             type="text"
             title="extra"
             value={education.extra}
             onChange={this.handleEducationChange}
           />
+          <button id="education-submit" type="submit">
+            submit
+          </button>
         </form>
       </div>
     );
   }
 }
 
-export default EducationData;
+Education.propTypes = {
+  addItemEducation: PropTypes.func.isRequired,
+};
+
+export default Education;

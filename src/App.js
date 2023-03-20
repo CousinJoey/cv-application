@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import EducationData from "./components/education";
-import WorkData from "./components/work";
-import GeneralData from "./components/general";
+import Main from "./components/main";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 class App extends Component {
   constructor(props) {
@@ -10,10 +10,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <GeneralData />
-        <WorkData />
-        <EducationData />
+      <div id="app">
+        <Header />
+        <Main />
+        <Footer />
       </div>
     );
   }
